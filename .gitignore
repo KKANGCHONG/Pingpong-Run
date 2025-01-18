@@ -5,55 +5,25 @@
 [Bb]uild/
 [Bb]uilds/
 [Ll]ogs/
+[Uu]ser[Ss]ettings/
 [Mm]emoryCaptures/
+[Rr]ecordings/
 
-# Visual Studio / MonoDevelop generated files
+# Visual Studio files
 .vscode/
 *.csproj
 *.sln
 *.userprefs
 
-# OS generated files
+# macOS files
 .DS_Store
+.AppleDouble
+.LSOverride
+
+# Windows files
 Thumbs.db
+ehthumbs.db
+Desktop.ini
 
-# Unity specific files
-*.unityproj
-*.pidb
-*.booproj
-*.suo
-*.svd
-*.user
-*.unitypackage
-*.tmp
-
-# Crashlytics generated files
-.crashlytics/
-
-# TextMeshPro generated files
-*.TMP_Editor/
-
-# JetBrains Rider IDE
-.idea/
-*.iml
-
-# Other files
-*.swp
-*.bak
-*.backup
-*.tmp
-*.temp
-
-# Build generated files
-/Builds/
-
-# Exclude custom plugin binaries
-*.dll
-*.pdb
-*.exe
-
-# Unity Cache Server
-/Assets/AssetBundles/
-
-# Exclude meta files if source control is used for collaboration
-# *.meta
+# Unity Addressables
+/[Aa]ssets/[Aa]ddressable[Aa]ssets[Dd]ata/*/*.bin*
