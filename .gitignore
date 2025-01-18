@@ -56,4 +56,4 @@ Thumbs.db
 /Assets/AssetBundles/
 
 # Exclude meta files if source control is used for collaboration
-*.meta
+# *.meta
