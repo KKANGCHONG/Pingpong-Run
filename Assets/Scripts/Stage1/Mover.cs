@@ -13,6 +13,11 @@ public class Mover : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        transform.position += Vector3.left * moveSpeed * Time.deltaTime;
+        if(CompareTag("ball"))  {
+            transform.position += Vector3.right * moveSpeed * Time.deltaTime;
+        }
+        else    {
+            transform.position += Vector3.left * moveSpeed * Time.deltaTime;
+        }
     }
 }

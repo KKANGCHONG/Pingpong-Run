@@ -1,10 +1,25 @@
 fileFormatVersion: 2
-guid: c2582fbee185c1f40a57f581b0c7ed1b
+guid: d815682bbed0547f4aecc32c44ac2f5e
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: 4440457386112498809
-    second: Basic Racket_0
+      213: -6107408488076036028
+    second: Jinwoo_jump_0
+  - first:
+      213: 4787431832255060944
+    second: Jinwoo_jump_1
+  - first:
+      213: -6476147135014413084
+    second: Jinwoo_jump_2
+  - first:
+      213: -2992249194937118565
+    second: Jinwoo_jump_3
+  - first:
+      213: -2925096258824502872
+    second: Jinwoo_jump_4
+  - first:
+      213: 8793606319794489708
+    second: Jinwoo_jump_5
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -37,7 +52,7 @@ TextureImporter:
   maxTextureSize: 2048
   textureSettings:
     serializedVersion: 2
-    filterMode: 1
+    filterMode: 0
     aniso: 1
     mipBias: 0
     wrapU: 1
@@ -51,7 +66,7 @@ TextureImporter:
   spriteMeshType: 1
   alignment: 0
   spritePivot: {x: 0.5, y: 0.5}
-  spritePixelsToUnits: 100
+  spritePixelsToUnits: 20
   spriteBorder: {x: 0, y: 0, z: 0, w: 0}
   spriteGenerateFallbackPhysicsShape: 1
   alphaUsage: 1
@@ -97,7 +112,7 @@ TextureImporter:
     androidETC2FallbackOverride: 0
     forceMaximumCompressionQuality_BC6H_BC7: 0
   - serializedVersion: 4
-    buildTarget: WebGL
+    buildTarget: Android
     maxTextureSize: 2048
     resizeAlgorithm: 0
     textureFormat: -1
@@ -110,7 +125,7 @@ TextureImporter:
     androidETC2FallbackOverride: 0
     forceMaximumCompressionQuality_BC6H_BC7: 0
   - serializedVersion: 4
-    buildTarget: Android
+    buildTarget: WebGL
     maxTextureSize: 2048
     resizeAlgorithm: 0
     textureFormat: -1
@@ -139,13 +154,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: Basic Racket_0
+      name: Jinwoo_jump_0
       rect:
         serializedVersion: 2
-        x: 0
-        y: 0
+        x: 13
+        y: 4
         width: 20
-        height: 160
+        height: 39
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -154,8 +169,118 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 97cbe73577caf9d30800000000000000
-      internalID: 4440457386112498809
+      spriteID: 448b50aa6502e3ba0800000000000000
+      internalID: -6107408488076036028
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Jinwoo_jump_1
+      rect:
+        serializedVersion: 2
+        x: 63
+        y: 12
+        width: 22
+        height: 32
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 0dbd5f3f2ef507240800000000000000
+      internalID: 4787431832255060944
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Jinwoo_jump_2
+      rect:
+        serializedVersion: 2
+        x: 113
+        y: 6
+        width: 23
+        height: 39
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 4ec5d482e7a1026a0800000000000000
+      internalID: -6476147135014413084
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Jinwoo_jump_3
+      rect:
+        serializedVersion: 2
+        x: 163
+        y: 9
+        width: 22
+        height: 34
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: b901358f5356976d0800000000000000
+      internalID: -2992249194937118565
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Jinwoo_jump_4
+      rect:
+        serializedVersion: 2
+        x: 213
+        y: 14
+        width: 23
+        height: 29
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 8a101fe4378f767d0800000000000000
+      internalID: -2925096258824502872
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Jinwoo_jump_5
+      rect:
+        serializedVersion: 2
+        x: 263
+        y: 9
+        width: 21
+        height: 34
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: c690bf97b5a290a70800000000000000
+      internalID: 8793606319794489708
       vertices: []
       indices: 
       edges: []
@@ -174,7 +299,12 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      Basic Racket_0: 4440457386112498809
+      Jinwoo_jump_0: -6107408488076036028
+      Jinwoo_jump_1: 4787431832255060944
+      Jinwoo_jump_2: -6476147135014413084
+      Jinwoo_jump_3: -2992249194937118565
+      Jinwoo_jump_4: -2925096258824502872
+      Jinwoo_jump_5: 8793606319794489708
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

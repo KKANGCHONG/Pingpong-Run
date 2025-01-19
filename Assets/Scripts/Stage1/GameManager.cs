@@ -21,6 +21,7 @@ public class GameManager : MonoBehaviour
     public GameObject EnemySpawner;
     public GameObject FoodSpawner;
     public GameObject GoldenSpawner;
+    public GameObject BallSpawner;
     public Player PlayerScript;
     public TMP_Text scoreText;
     
@@ -67,6 +68,7 @@ public class GameManager : MonoBehaviour
             EnemySpawner.SetActive(true);
             FoodSpawner.SetActive(true);
             GoldenSpawner.SetActive(true);
+            BallSpawner.SetActive(true);
             PlayStartTime = Time.time;
         }
         if(State == GameState.Playing && Lives == 0)    {
@@ -74,12 +76,16 @@ public class GameManager : MonoBehaviour
             EnemySpawner.SetActive(false);
             FoodSpawner.SetActive(false);
             GoldenSpawner.SetActive(false);
+            if(BallSpawner != null) {
+                BallSpawner.SetActive(false);
+            }
             DeadUI.SetActive(true);
             SaveHighScore();
             State = GameState.Dead;
         }
         if(State == GameState.Dead && Input.GetKeyDown(KeyCode.Space))  {
-            SceneManager.LoadScene("SampleScene");
+            string currentSceneName = SceneManager.GetActiveScene().name;
+            SceneManager.LoadScene(currentSceneName);
         }
     }
 }
