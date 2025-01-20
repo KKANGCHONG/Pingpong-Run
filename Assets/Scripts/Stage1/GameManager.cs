@@ -15,6 +15,10 @@ public class GameManager : MonoBehaviour
     public GameState State = GameState.Intro;
     public float PlayStartTime;
     public int Lives = 3;
+    [Header("Game Settings")]
+    public float timeLimit = 60f; // 제한시간 (초)
+    private float currentTime; // 현재 시간
+    private bool stairSpawned = false;
     [Header("References")]
     public GameObject IntroUI;
     public GameObject DeadUI;
@@ -22,8 +26,10 @@ public class GameManager : MonoBehaviour
     public GameObject FoodSpawner;
     public GameObject GoldenSpawner;
     public GameObject BallSpawner;
+    public GameObject StairPrefab;    // 계단 프리팹
+    public Transform StairSpawnPoint; // 계단 생성 위치
     public Player PlayerScript;
-    public TMP_Text scoreText;
+    public TMP_Text timerText;
     
 
     void Awake()    {
@@ -38,6 +44,7 @@ public class GameManager : MonoBehaviour
             Destroy(gameObject); // Stage1 씬이 아니면 제거
         }
         IntroUI.SetActive(true);
+        currentTime = 0f;
     }
 
     float CalculateScore()   {
@@ -61,9 +68,20 @@ public class GameManager : MonoBehaviour
     void Update()
     {
         if(State == GameState.Playing)  {
-            scoreText.text = "Score: " + Mathf.FloorToInt(CalculateScore());
+            currentTime += Time.deltaTime;
+            if (currentTime >= timeLimit)
+            {
+                currentTime = timeLimit;
+                if (!stairSpawned) OnTimeUp(); // 제한시간이 끝났을 때 처리
+            }
+
+            // 제한시간 UI 업데이트
+            if (timerText != null)
+            {
+                timerText.text = "Time: " + Mathf.CeilToInt(currentTime).ToString();
+            }
         } else if (State == GameState.Dead) {
-            scoreText.text = "High Score: " + GetHighScore();
+            timerText.text = "High Score: " + GetHighScore();
         }
         if(State == GameState.Intro && Input.GetKeyDown(KeyCode.Space)) {
             State = GameState.Playing;
@@ -89,5 +107,29 @@ public class GameManager : MonoBehaviour
         if(State == GameState.Dead && Input.GetKeyDown(KeyCode.Space))  {
             SceneManager.LoadScene("Select");
         }
+    }
+    private void OnTimeUp()
+    {
+        Debug.Log("Time's up!"); // 제한시간 종료 처리
+        stairSpawned = true;
+        EnemySpawner.SetActive(false);
+        FoodSpawner.SetActive(false);
+        GoldenSpawner.SetActive(false);
+        if (BallSpawner != null)
+        {
+            BallSpawner.SetActive(false);
+        }
+        GameObject stair = Instantiate(StairPrefab, StairSpawnPoint.position, Quaternion.identity);
+        Mover stairMover = stair.GetComponent<Mover>();
+        if (stairMover != null)
+        {
+            stairMover.SetStopCallback(OnStairStopped); // 계단 멈춤 시 실행될 콜백 설정
+        }
+    }
+
+    private void OnStairStopped(Vector3 stairPosition)
+    {
+        Debug.Log("Stair stopped. Moving player.");
+        PlayerScript.StartMovingToStair(stairPosition); // 플레이어 이동 시작
     }
 }

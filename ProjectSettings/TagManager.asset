@@ -8,6 +8,7 @@ TagManager:
   - food
   - golden
   - ball
+  - stair
   layers:
   - Default
   - TransparentFX

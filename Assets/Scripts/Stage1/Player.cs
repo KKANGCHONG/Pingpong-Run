@@ -13,6 +13,9 @@ public class Player : MonoBehaviour
     private bool isGrounded = true;
 
     private bool isInvincible = false;
+    public float moveSpeed = 2f;   // 이동 속도
+    private bool isMovingToStair = false; // 계단으로 이동 중인지 확인
+    private Vector3 stairTarget; // 계단 위치
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
@@ -26,6 +29,18 @@ public class Player : MonoBehaviour
             PlayerRigidBody.AddForceY(JumpForce, ForceMode2D.Impulse);
             isGrounded = false;
             PlayerAnimator.SetInteger("state", 1);
+        }
+        if (isMovingToStair)
+        {
+            transform.position = Vector3.MoveTowards(transform.position, stairTarget, moveSpeed * Time.deltaTime);
+
+            // 목표 위치에 도달했는지 확인
+            if (Vector3.Distance(transform.position, stairTarget) < 0.1f)
+            {
+                isMovingToStair = false;
+                Debug.Log("Player reached the stair.");
+                StartClimbing(); // 계단 오르기 시작
+            }
         }
     }
 
@@ -79,5 +94,17 @@ public class Player : MonoBehaviour
             Destroy(collider.gameObject);
             StartInvincible();
         }
+    }
+    public void StartMovingToStair(Vector3 targetPosition)
+    {
+        isMovingToStair = true;
+        stairTarget = new Vector3(targetPosition.x, transform.position.y, transform.position.z); // X축 위치만 맞춤
+        Debug.Log("Player is moving to the stair.");
+    }
+
+    private void StartClimbing()
+    {
+        Debug.Log("Player starts climbing the stair.");
+        // 계단 오르기 애니메이션 또는 추가 로직
     }
 }
