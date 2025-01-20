@@ -354,6 +354,7 @@ MonoBehaviour:
   PlayerRigidBody: {fileID: 198548967}
   PlayerCollider: {fileID: 198548966}
   PlayerAnimator: {fileID: 198548963}
+  moveSpeed: 2
 --- !u!1 &224874990
 GameObject:
   m_ObjectHideFlags: 0
@@ -576,14 +577,17 @@ MonoBehaviour:
   State: 0
   PlayStartTime: 0
   Lives: 3
+  timeLimit: 60
   IntroUI: {fileID: 99365686}
   DeadUI: {fileID: 1691000634}
   EnemySpawner: {fileID: 862672975}
   FoodSpawner: {fileID: 495001884}
   GoldenSpawner: {fileID: 2112532503}
   BallSpawner: {fileID: 734248821}
+  StairPrefab: {fileID: 0}
+  StairSpawnPoint: {fileID: 0}
   PlayerScript: {fileID: 198548968}
-  scoreText: {fileID: 313607359}
+  timerText: {fileID: 0}
 --- !u!4 &315244806
 Transform:
   m_ObjectHideFlags: 0
