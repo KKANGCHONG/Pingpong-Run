@@ -34,6 +34,9 @@ public class GameManager : MonoBehaviour
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
+        if (SceneManager.GetActiveScene().name != "Stage1"){
+            Destroy(gameObject); // Stage1 씬이 아니면 제거
+        }
         IntroUI.SetActive(true);
     }
 
@@ -84,8 +87,7 @@ public class GameManager : MonoBehaviour
             State = GameState.Dead;
         }
         if(State == GameState.Dead && Input.GetKeyDown(KeyCode.Space))  {
-            string currentSceneName = SceneManager.GetActiveScene().name;
-            SceneManager.LoadScene(currentSceneName);
+            SceneManager.LoadScene("Select");
         }
     }
 }
