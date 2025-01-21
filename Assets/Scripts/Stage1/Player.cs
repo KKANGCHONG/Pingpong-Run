@@ -1,5 +1,4 @@
 using UnityEngine;
-using UnityEngine.SceneManagement;
 
 public class Player : MonoBehaviour
 {
@@ -12,26 +11,44 @@ public class Player : MonoBehaviour
     public BoxCollider2D PlayerCollider;
     public Animator PlayerAnimator;
     private bool isGrounded = true;
-
     private bool isInvincible = false;
     public float moveSpeed = 2f;   // 이동 속도
     private bool isMovingToStair = false; // 계단으로 이동 중인지 확인
     private Vector3 stairTarget; // 계단 위치
-    private bool enteringStair = false;
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
+
     void Start()
     {
         
     }
 
-    // Update is called once per frame
     void Update()
     {
-        if(Input.GetKeyDown(KeyCode.Space) && isGrounded) {
+        // 점프
+        if(Input.GetKeyDown(KeyCode.Space) && isGrounded) 
+        {
             PlayerRigidBody.AddForceY(JumpForce, ForceMode2D.Impulse);
             isGrounded = false;
             PlayerAnimator.SetInteger("state", 1);
         }
+        // 슬라이드 
+        if(Input.GetKeyDown(KeyCode.DownArrow) && isGrounded ) 
+        {
+            PlayerAnimator.SetInteger("state", 3);
+        }
+
+        // 슬라이드 유지 (KeyCode.DownArrow를 누르고 있는 동안)
+        if(Input.GetKey(KeyCode.DownArrow) && isGrounded) 
+        {
+            PlayerAnimator.SetInteger("state", 3); // 계속 슬라이드 유지
+        }
+
+        // 슬라이드 종료 (KeyCode.DownArrow를 뗐을 때)
+        if(Input.GetKeyUp(KeyCode.DownArrow)) 
+        {
+            PlayerAnimator.SetInteger("state", 4); // 슬라이드 종료 상태
+        }
+
+        // 계단 오르는 거
         if (isMovingToStair)
         {
             transform.position = Vector3.MoveTowards(transform.position, stairTarget, moveSpeed * Time.deltaTime);
@@ -41,21 +58,10 @@ public class Player : MonoBehaviour
             {
                 isMovingToStair = false;
                 Debug.Log("Player reached the stair.");
-                EnterStair(); // 계단 오르기 시작
+                StartClimbing(); // 계단 오르기 시작
             }
         }
-        if (enteringStair)
-        {
-            transform.position = Vector3.MoveTowards(transform.position, stairTarget, moveSpeed * Time.deltaTime);
 
-            // 계단 내부 목표 위치 도달 시 Stage2로 전환
-            if (Vector3.Distance(transform.position, stairTarget) < 0.2f)
-            {
-                enteringStair = false;
-                Debug.Log("Player entered the stair. Loading Stage2.");
-                SceneManager.LoadScene("Stage2");
-            }
-        }
     }
 
     public void KillPlayer()   {
@@ -109,6 +115,7 @@ public class Player : MonoBehaviour
             StartInvincible();
         }
     }
+
     public void StartMovingToStair(Vector3 targetPosition)
     {
         isMovingToStair = true;
@@ -116,11 +123,9 @@ public class Player : MonoBehaviour
         Debug.Log("Player is moving to the stair.");
     }
 
-    private void EnterStair()
+    private void StartClimbing()
     {
-        Debug.Log("Player is entering the stair.");
-        enteringStair = true;
-        stairTarget = new Vector3(transform.position.x, transform.position.y - 2f, transform.position.z); // 계단 내부로 이동 목표
-        Debug.Log($"Entering stair. Target Position: {stairTarget}");
+        Debug.Log("Player starts climbing the stair.");
+        // 계단 오르기 애니메이션 또는 추가 로직
     }
 }
