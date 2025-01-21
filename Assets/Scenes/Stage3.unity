@@ -624,7 +624,7 @@ MonoBehaviour:
   State: 0
   PlayStartTime: 0
   Lives: 3
-  timeLimit: 10
+  timeLimit: 60
   IntroUI: {fileID: 99365686}
   DeadUI: {fileID: 1691000634}
   EnemySpawner: {fileID: 862672975}

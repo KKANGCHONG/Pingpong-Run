@@ -40,7 +40,7 @@ public class GameManager : MonoBehaviour
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-        if (SceneManager.GetActiveScene().name != "Stage1"){
+        if (SceneManager.GetActiveScene().name != "Stage1" && SceneManager.GetActiveScene().name != "Stage3"){
             Destroy(gameObject); // Stage1 씬이 아니면 제거
         }
         IntroUI.SetActive(true);
