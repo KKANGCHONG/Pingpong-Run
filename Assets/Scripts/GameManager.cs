@@ -16,7 +16,7 @@ public class GameManager : MonoBehaviour
     public float PlayStartTime;
     public int Lives = 3;
     [Header("Game Settings")]
-    public float timeLimit = 10f; // 제한시간 (초)
+    public float timeLimit = 30f; // 제한시간 (초)
     private float currentTime; // 현재 시간
     private bool stairSpawned = false;
     [Header("References")]
@@ -26,8 +26,8 @@ public class GameManager : MonoBehaviour
     public GameObject FoodSpawner;
     public GameObject GoldenSpawner;
     public GameObject BallSpawner;
-    public GameObject StairPrefab;    // 계단 프리팹
-    public Transform StairSpawnPoint; // 계단 생성 위치
+    // public GameObject StairPrefab;    // 계단 프리팹
+    // public Transform StairSpawnPoint; // 계단 생성 위치
     public Player PlayerScript;
     public TMP_Text timerText;
     
@@ -119,17 +119,17 @@ public class GameManager : MonoBehaviour
         {
             BallSpawner.SetActive(false);
         }
-        GameObject stair = Instantiate(StairPrefab, StairSpawnPoint.position, Quaternion.identity);
-        Mover stairMover = stair.GetComponent<Mover>();
-        if (stairMover != null)
-        {
-            stairMover.SetStopCallback(OnStairStopped); // 계단 멈춤 시 실행될 콜백 설정
-        }
+        // GameObject stair = Instantiate(StairPrefab, StairSpawnPoint.position, Quaternion.identity);
+        // Mover stairMover = stair.GetComponent<Mover>();
+        // if (stairMover != null)
+        // {
+        //     stairMover.SetStopCallback(OnStairStopped); // 계단 멈춤 시 실행될 콜백 설정
+        // }
     }
 
-    private void OnStairStopped(Vector3 stairPosition)
-    {
-        Debug.Log("Stair stopped. Moving player.");
-        PlayerScript.StartMovingToStair(stairPosition); // 플레이어 이동 시작
-    }
+    // private void OnStairStopped(Vector3 stairPosition)
+    // {
+    //     Debug.Log("Stair stopped. Moving player.");
+    //     PlayerScript.StartMovingToStair(stairPosition); // 플레이어 이동 시작
+    // }
 }
