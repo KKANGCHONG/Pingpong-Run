@@ -11,6 +11,34 @@ public class ScoreManager : MonoBehaviour
     private int rightScore = 0; // 오른쪽 점수
     public int maxScore = 6; // 최대 점수
 
+    [Header("Game Settings")]
+    public float minTimeLimit = 60f; // 제한시간 최소값
+    public float maxTimeLimit = 120f; // 제한시간 최대값
+    private float remainingTime; // 남은 시간
+    private bool gameEnded = false;
+
+    void Start()
+    {
+        // 제한시간을 랜덤으로 설정
+        remainingTime = Random.Range(minTimeLimit, maxTimeLimit);
+    }
+
+    void Update()
+    {
+        if (!gameEnded)
+        {
+            // 남은 시간 감소
+            remainingTime -= Time.deltaTime;
+
+            // 제한시간이 0 이하가 되면 게임 오버 처리
+            if (remainingTime <= 0)
+            {
+                remainingTime = 0;
+                GameOver();
+            }
+        }
+    }
+
     // 점수 추가 메서드
     public void AddScore(bool isRightSide)
     {
@@ -48,8 +76,19 @@ public class ScoreManager : MonoBehaviour
 
     private void EndGame(string winner)
     {
+        if (gameEnded) return;
+
+        gameEnded = true;
         Debug.Log($"{winner} wins the game!");
         // 게임 재시작 또는 다른 처리
         SceneManager.LoadScene("Stage3");
+    }
+    private void GameOver()
+    {
+        if (gameEnded) return;
+
+        gameEnded = true;
+        Debug.Log("Game Over! Time's up!");
+        SceneManager.LoadScene("Select");
     }
 }
