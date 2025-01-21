@@ -16,7 +16,7 @@ public class GameManager : MonoBehaviour
     public float PlayStartTime;
     public int Lives = 3;
     [Header("Game Settings")]
-    public float timeLimit = 60f; // 제한시간 (초)
+    public float timeLimit = 10f; // 제한시간 (초)
     private float currentTime; // 현재 시간
     private bool stairSpawned = false;
     [Header("References")]

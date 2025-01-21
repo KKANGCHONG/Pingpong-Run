@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class Player : MonoBehaviour
 {
@@ -16,6 +17,7 @@ public class Player : MonoBehaviour
     public float moveSpeed = 2f;   // 이동 속도
     private bool isMovingToStair = false; // 계단으로 이동 중인지 확인
     private Vector3 stairTarget; // 계단 위치
+    private bool enteringStair = false;
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
@@ -39,7 +41,19 @@ public class Player : MonoBehaviour
             {
                 isMovingToStair = false;
                 Debug.Log("Player reached the stair.");
-                StartClimbing(); // 계단 오르기 시작
+                EnterStair(); // 계단 오르기 시작
+            }
+        }
+        if (enteringStair)
+        {
+            transform.position = Vector3.MoveTowards(transform.position, stairTarget, moveSpeed * Time.deltaTime);
+
+            // 계단 내부 목표 위치 도달 시 Stage2로 전환
+            if (Vector3.Distance(transform.position, stairTarget) < 0.2f)
+            {
+                enteringStair = false;
+                Debug.Log("Player entered the stair. Loading Stage2.");
+                SceneManager.LoadScene("Stage2");
             }
         }
     }
@@ -102,9 +116,11 @@ public class Player : MonoBehaviour
         Debug.Log("Player is moving to the stair.");
     }
 
-    private void StartClimbing()
+    private void EnterStair()
     {
-        Debug.Log("Player starts climbing the stair.");
-        // 계단 오르기 애니메이션 또는 추가 로직
+        Debug.Log("Player is entering the stair.");
+        enteringStair = true;
+        stairTarget = new Vector3(transform.position.x, transform.position.y - 2f, transform.position.z); // 계단 내부로 이동 목표
+        Debug.Log($"Entering stair. Target Position: {stairTarget}");
     }
 }
