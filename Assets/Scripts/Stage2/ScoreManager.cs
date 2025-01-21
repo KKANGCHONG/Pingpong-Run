@@ -15,12 +15,24 @@ public class ScoreManager : MonoBehaviour
     public float minTimeLimit = 60f; // 제한시간 최소값
     public float maxTimeLimit = 120f; // 제한시간 최대값
     private float remainingTime; // 남은 시간
+    [Header("References")]
+    public GameObject SelectionUI; // 선택지 UI
+    public TMP_Text selectionMessage; // 선택 메시지 UI
+    public GameObject arrow; // 화살표 오브젝트
+    public GameObject ball;
+    public Vector3[] arrowPositions;
+    public Transform[] buttonPositions; // 버튼 위치 배열 (Transform)
+
+    private int selectedButtonIndex = 0; // 현재 선택된 버튼 인덱스
+
     private bool gameEnded = false;
 
     void Start()
     {
         // 제한시간을 랜덤으로 설정
         remainingTime = Random.Range(minTimeLimit, maxTimeLimit);
+        SelectionUI.SetActive(false);
+        UpdateArrowPosition();
     }
 
     void Update()
@@ -36,6 +48,10 @@ public class ScoreManager : MonoBehaviour
                 remainingTime = 0;
                 GameOver();
             }
+        }
+        else if (SelectionUI.activeSelf)
+        {
+            HandleArrowNavigation();
         }
     }
 
@@ -81,14 +97,79 @@ public class ScoreManager : MonoBehaviour
         gameEnded = true;
         Debug.Log($"{winner} wins the game!");
         // 게임 재시작 또는 다른 처리
-        SceneManager.LoadScene("Stage3");
+        ShowSelectionUI(winner);
     }
     private void GameOver()
     {
         if (gameEnded) return;
 
         gameEnded = true;
-        Debug.Log("Game Over! Time's up!");
+        Debug.Log("Game Over! Time's up! Limit: {remainingTime}");
         SceneManager.LoadScene("Select");
+    }
+    private void ShowSelectionUI(string message)
+    {
+        SelectionUI.SetActive(true); // 선택지 UI 활성화
+
+        if (ball != null)   {
+            ball.SetActive(false); // 공 숨기기
+        }
+        UpdateArrowPosition();
+    }
+    public void PlayAgain()
+    {
+        SelectionUI.SetActive(false);
+
+        if (ball != null){
+            ball.SetActive(true);
+        }
+        ResetGame();
+    }
+
+    public void ProceedToStage3()
+    {
+        SceneManager.LoadScene("Stage3");
+    }
+
+    private void ResetGame()
+    {
+        leftScore = 0;
+        rightScore = 0;
+        leftScoreText.text = leftScore.ToString();
+        rightScoreText.text = rightScore.ToString();
+        gameEnded = false;
+    }
+    private void HandleArrowNavigation()
+    {
+        if (Input.GetKeyDown(KeyCode.LeftArrow))
+        {
+            selectedButtonIndex = (selectedButtonIndex - 1 + buttonPositions.Length) % buttonPositions.Length;
+            UpdateArrowPosition();
+        }
+        else if (Input.GetKeyDown(KeyCode.RightArrow))
+        {
+            selectedButtonIndex = (selectedButtonIndex + 1) % buttonPositions.Length;
+            UpdateArrowPosition();
+        }
+
+        if (Input.GetKeyDown(KeyCode.Space))
+        {
+            if (selectedButtonIndex == 0)
+            {
+                PlayAgain();
+            }
+            else if (selectedButtonIndex == 1)
+            {
+                ProceedToStage3();
+            }
+        }
+    }
+
+    private void UpdateArrowPosition()
+    {
+        if (arrow != null && arrowPositions.Length > 0)
+        {
+            arrow.transform.position = arrowPositions[selectedButtonIndex];
+        }
     }
 }
