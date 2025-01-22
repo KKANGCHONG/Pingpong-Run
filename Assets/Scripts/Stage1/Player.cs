@@ -51,7 +51,7 @@ public class Player : MonoBehaviour
             PlayerAnimator.SetInteger("state", 4); // 슬라이드 종료 상태
         }
 
-        // 계단 오르는 거
+        // //계단 오르는 거
         // if (isMovingToStair)
         // {
         //     transform.position = Vector3.MoveTowards(transform.position, stairTarget, moveSpeed * Time.deltaTime);
