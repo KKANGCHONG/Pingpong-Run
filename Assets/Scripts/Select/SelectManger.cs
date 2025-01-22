@@ -13,10 +13,13 @@ public class SelectManger : MonoBehaviour
     public GameObject IntroUI;
     public GameObject CharacterSelectionUI; // 캐릭터 선택 UI
     public GameObject[] characterOptions; // 캐릭터 옵션 배열
+    public AudioClip[] characterAudioClips; // 캐릭터별 오디오 클립 배열
+    private AudioSource audioSource; // 오디오 재생용 AudioSource
     public GameObject arrow; // 화살표 오브젝트
     public Vector3[] arrowPositions; // 화살표 위치 배열
     private int selectedCharacterIndex = 0; // 선택된 캐릭터의 인덱스
     private SelectState state = SelectState.Intro;
+    private bool isAudioPlaying = false; // 오디오 재생 여부
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
@@ -26,6 +29,8 @@ public class SelectManger : MonoBehaviour
         state = SelectState.Intro;
         IntroUI.SetActive(true);
         CharacterSelectionUI.SetActive(false);
+        audioSource = gameObject.AddComponent<AudioSource>();
+        audioSource.playOnAwake = false;
         UpdateCharacterSelection();
         UpdateArrowPosition();
     }
@@ -33,6 +38,7 @@ public class SelectManger : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if (isAudioPlaying) return;
         if (state == SelectState.Intro) {
             HandleIntroState();
         }
@@ -65,7 +71,7 @@ public class SelectManger : MonoBehaviour
         // Space 키를 눌러 Stage1으로 이동
         if (Input.GetKeyDown(KeyCode.Space))    {
             PlayerPrefs.SetInt("SelectedCharacter", selectedCharacterIndex); // 선택한 캐릭터 저장
-            SceneManager.LoadScene("Stage1"); // Stage1으로 이동
+            PlaySelectedCharacterAudio();
         }
     }
 
@@ -81,5 +87,26 @@ public class SelectManger : MonoBehaviour
         {
             arrow.transform.position = arrowPositions[selectedCharacterIndex];
         }
+    }
+    private void PlaySelectedCharacterAudio()
+    {
+        if (characterAudioClips.Length > selectedCharacterIndex && characterAudioClips[selectedCharacterIndex] != null)
+        {
+            isAudioPlaying = true; // 오디오 재생 중으로 설정
+            audioSource.clip = characterAudioClips[selectedCharacterIndex];
+            audioSource.Play();
+            StartCoroutine(WaitForAudioToFinish());
+        }
+        else
+        {
+            // 오디오가 없으면 바로 Stage1으로 이동
+            SceneManager.LoadScene("Stage1");
+        }
+    }
+
+    private System.Collections.IEnumerator WaitForAudioToFinish()
+    {
+        yield return new WaitForSeconds(audioSource.clip.length); // 오디오 재생 시간만큼 대기
+        SceneManager.LoadScene("Stage1"); // Stage1 씬으로 이동
     }
 }
