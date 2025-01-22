@@ -1211,6 +1211,7 @@ MonoBehaviour:
   IntroUI: {fileID: 99365686}
   DeadUI: {fileID: 1691000634}
   BallSpawner: {fileID: 0}
+  BallNumber: 0
   PlayerScript: {fileID: 198548968}
   timerText: {fileID: 313607359}
 --- !u!4 &315244806
@@ -2478,7 +2479,7 @@ GameObject:
   - component: {fileID: 606229107}
   m_Layer: 0
   m_Name: Ball
-  m_TagString: Untagged
+  m_TagString: Ball
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

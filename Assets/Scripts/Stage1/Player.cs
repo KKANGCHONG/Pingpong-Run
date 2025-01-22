@@ -1,6 +1,7 @@
 using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
+using System.Security.Cryptography;
 
 
 public class Player : MonoBehaviour
@@ -16,6 +17,7 @@ public class Player : MonoBehaviour
     private bool isInvincible = false;
     public float moveSpeed = 2f;   // 이동 속도
     private bool isHit = false; // 충돌 상태 플래그
+    
     // private bool isMovingToStair = false; // 계단으로 이동 중인지 확인
     // private Vector3 stairTarget; // 계단 위치
 
@@ -80,11 +82,18 @@ public class Player : MonoBehaviour
         }
     }
 
+    void Spin()  {
+        GameManager.Instance.Lives -= 1;
+        if(GameManager.Instance.Lives == 0)  {
+            KillPlayer();
+        }
+    }
+
     void Heal()  {
         GameManager.Instance.Lives = Mathf.Min(3, GameManager.Instance.Lives + 1);
     }
 
-    // 소주 마셔서 알코올 농도 높아짐 - 테스트 
+    // 소주 마셔서 알코올 농도 높아짐
     void drink_soju()  {
         GameManager.Instance.Alcohol += 1;
         if(GameManager.Instance.Alcohol == 5)  {
@@ -97,6 +106,36 @@ public class Player : MonoBehaviour
     void drink_condition() {
         GameManager.Instance.Alcohol = Mathf.Min(5, GameManager.Instance.Alcohol-1);
     }
+
+    // 공 먹어서 점수 올라감
+    void get_Ball(string ballTag) {
+    switch (ballTag) {
+        case "Ball_1":
+            GameManager.Instance.BallNumber += 1;
+            break;
+        case "Ball_2":
+            GameManager.Instance.BallNumber += 2;
+            break;
+        case "Ball_3":
+            GameManager.Instance.BallNumber += 3;
+            break;
+        case "Ball_4":
+            GameManager.Instance.BallNumber += 4;
+            break;
+        case "Ball_5":
+            GameManager.Instance.BallNumber += 5;
+            break;
+        default:
+            Debug.LogWarning("Unknown ball tag: " + ballTag);
+            break;
+    }
+
+    // UI 업데이트
+    if (GameManager.Instance.BallNumberText != null) {
+        GameManager.Instance.BallNumberText.text = "Ball: " + GameManager.Instance.BallNumber.ToString();
+    }
+}
+
 
 
     void OnCollisionEnter2D(Collision2D collision2D) {
@@ -170,6 +209,23 @@ public class Player : MonoBehaviour
 
             StartCoroutine(ResetToRun());
         }
+
+        else if (collider.gameObject.tag == "Banana" && isHit == false)
+        {
+            isHit = true; 
+            PlayerAnimator.SetInteger("state", 5); // Jinwoo Spin 상태로 변경 - 수정전전
+            Hit(); // Spin()으로 바꾸기
+            Destroy(collider.gameObject); // 블록 없애기
+
+            StartCoroutine(ResetToRun());
+        }
+
+        else if (collider.gameObject.tag.StartsWith("Ball")) 
+        {
+            Destroy(collider.gameObject);
+            get_Ball(collider.gameObject.tag);
+        }
+
     }
 
     // public void StartMovingToStair(Vector3 targetPosition)
@@ -184,4 +240,5 @@ public class Player : MonoBehaviour
     //     Debug.Log("Player starts climbing the stair.");
     //     // 계단 오르기 애니메이션 또는 추가 로직
     // }
+
 }

@@ -15,6 +15,7 @@ TagManager:
   - Soju
   - Madcamp
   - Condition
+  - Ball
   layers:
   - Default
   - TransparentFX

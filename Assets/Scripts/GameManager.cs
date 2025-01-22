@@ -29,6 +29,11 @@ public class GameManager : MonoBehaviour
     public GameObject BallSpawner;
     // public GameObject StairPrefab;    // 계단 프리팹
     // public Transform StairSpawnPoint; // 계단 생성 위치
+
+    // 점수 계산을 위한 공 개수 추가
+    public int BallNumber;
+    // 공 개수 텍스트 추가
+    public TMP_Text BallNumberText;
     public Player PlayerScript;
     public TMP_Text timerText;
     
@@ -47,23 +52,25 @@ public class GameManager : MonoBehaviour
         currentTime = 0f;
     }
 
+    // 점수 계산 관련 함수들
     float CalculateScore()   {
-        return Time.time - PlayStartTime;
+        // return Time.time - PlayStartTime;
+        return BallNumber;
     }
 
     // 점수 계산 로직
-    void SaveHighScore()    {
-        int score = Mathf.FloorToInt(CalculateScore());
-        int currentHightScore = PlayerPrefs.GetInt("highScore");
-        if(score > currentHightScore)   {
-            PlayerPrefs.SetInt("highScore", score);
-            PlayerPrefs.Save();
-        }
-    }
+    // void SaveHighScore()    {
+    //     int score = Mathf.FloorToInt(CalculateScore());
+    //     int currentHightScore = PlayerPrefs.GetInt("highScore");
+    //     if(score > currentHightScore)   {
+    //         PlayerPrefs.SetInt("highScore", score);
+    //         PlayerPrefs.Save();
+    //     }
+    // }
 
-    int GetHighScore(){
-        return PlayerPrefs.GetInt("highScore");
-    }
+    // int GetHighScore(){
+    //     return PlayerPrefs.GetInt("highScore");
+    // }
 
     // 알코올 값 증가, 최대 5까지 제한
     void drink_soju()
@@ -87,9 +94,16 @@ public class GameManager : MonoBehaviour
             {
                 timerText.text = "Time: " + Mathf.CeilToInt(currentTime).ToString();
             }
-        } else if (State == GameState.Dead) {
-            timerText.text = "High Score: " + GetHighScore();
+        } //else if (State == GameState.Dead) {
+        //     timerText.text = "High Score: " + GetHighScore();
+        // }
+        
+        //Ball 개수 뜨게..
+        if (BallNumberText != null) 
+        {
+            BallNumberText.text = "Ball: " + BallNumber.ToString();
         }
+
         if(State == GameState.Intro && Input.GetKeyDown(KeyCode.Space)) {
             State = GameState.Playing;
             IntroUI.SetActive(false);
@@ -101,7 +115,7 @@ public class GameManager : MonoBehaviour
                 BallSpawner.SetActive(false);
             }
             DeadUI.SetActive(true);
-            SaveHighScore();
+            // SaveHighScore();
             State = GameState.Dead;
         }
         if(State == GameState.Dead && Input.GetKeyDown(KeyCode.Space))  {
