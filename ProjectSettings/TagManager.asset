@@ -16,6 +16,12 @@ TagManager:
   - Madcamp
   - Condition
   - Ball
+  - Ball_5
+  - Ball_4
+  - Ball_3
+  - Ball_2
+  - Ball_1
+  - Banana
   layers:
   - Default
   - TransparentFX
