@@ -92,16 +92,16 @@ public class GameManager : MonoBehaviour
             // 제한시간 UI 업데이트
             if (timerText != null)
             {
-                timerText.text = "Time: " + Mathf.CeilToInt(currentTime).ToString();
+                timerText.text = Mathf.CeilToInt(currentTime).ToString();
             }
         } //else if (State == GameState.Dead) {
         //     timerText.text = "High Score: " + GetHighScore();
         // }
-        
+
         //Ball 개수 뜨게..
         if (BallNumberText != null) 
         {
-            BallNumberText.text = "Ball: " + BallNumber.ToString();
+            BallNumberText.text = BallNumber.ToString();
         }
 
         if(State == GameState.Intro && Input.GetKeyDown(KeyCode.Space)) {
