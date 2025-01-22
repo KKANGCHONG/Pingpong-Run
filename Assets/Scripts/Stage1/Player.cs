@@ -1,4 +1,7 @@
 using UnityEngine;
+using System.Collections;
+using System.Collections.Generic;
+
 
 public class Player : MonoBehaviour
 {
@@ -7,13 +10,12 @@ public class Player : MonoBehaviour
 
     [Header("References")]
     public Rigidbody2D PlayerRigidBody;
-    
     public BoxCollider2D PlayerCollider;
     public Animator PlayerAnimator;
     private bool isGrounded = true;
     private bool isInvincible = false;
     public float moveSpeed = 2f;   // 이동 속도
-    // private bool isHit = false; // 충돌 상태 플래그
+    private bool isHit = false; // 충돌 상태 플래그
     // private bool isMovingToStair = false; // 계단으로 이동 중인지 확인
     // private Vector3 stairTarget; // 계단 위치
 
@@ -73,7 +75,6 @@ public class Player : MonoBehaviour
 
     void Hit()  {
         GameManager.Instance.Lives -= 1;
-        // isHit = false; 
         if(GameManager.Instance.Lives == 0)  {
             KillPlayer();
         }
@@ -83,14 +84,14 @@ public class Player : MonoBehaviour
         GameManager.Instance.Lives = Mathf.Min(3, GameManager.Instance.Lives + 1);
     }
 
-    void StartInvincible()  {
-        isInvincible = true;
-        Invoke("StopInvincible", 5f);
-    }
+    // void StartInvincible()  {
+    //     isInvincible = true;
+    //     Invoke("StopInvincible", 5f);
+    // }
 
-    void StopInvincible()  {
-        isInvincible = false;
-    }
+    // void StopInvincible()  {
+    //     isInvincible = false;
+    // }
 
     void OnCollisionEnter2D(Collision2D collision2D) {
         if(collision2D.gameObject.tag == "Bottom") {
@@ -100,6 +101,17 @@ public class Player : MonoBehaviour
             isGrounded = true;
         }
     }
+
+    IEnumerator ResetToRun()
+{
+    // Jinwoo Hit 애니메이션의 길이를 가져옴
+    float animationLength = PlayerAnimator.GetCurrentAnimatorStateInfo(0).length;
+
+    yield return new WaitForSeconds(animationLength);
+
+    PlayerAnimator.SetInteger("state", 0); // Jinwoo Run 상태로 변경
+    isHit = false; // 충돌 상태 초기화
+}
 
     void OnTriggerEnter2D(Collider2D collider)  {
         if(collider.gameObject.tag == "enemy" || collider.gameObject.tag == "ball")  {
@@ -116,18 +128,24 @@ public class Player : MonoBehaviour
         //     Destroy(collider.gameObject);
         //     StartInvincible();
         // }
-        // else if(collider.gameObject.tag == "Error")  {
-        //     // Destroy(collider.gameObject);
-        //     PlayerAnimator.SetInteger("state", 5);
-        //     Hit();
-        // }
-        // else if (collider.gameObject.tag == "Error" && isHit == false)
-        // {
-        //     isHit = true; // 충돌 상태 설정
-        //     PlayerAnimator.SetInteger("state", 5); // Jinwoo Hit 상태로 변경
-        //     Hit();
-        //     isHit = false;
-        // }
+
+        else if (collider.gameObject.tag == "Error" && isHit == false)
+        {
+            isHit = true; // 충돌 상태 설정
+            PlayerAnimator.SetInteger("state", 5); // Jinwoo Hit 상태로 변경
+            Hit();
+            // 애니메이션의 길이만큼 대기 후 상태를 변경
+            StartCoroutine(ResetToRun());
+        }
+
+        else if (collider.gameObject.tag == "Commit" && isHit == false)
+        {
+            isHit = true; // 충돌 상태 설정
+            PlayerAnimator.SetInteger("state", 5); // Jinwoo Hit 상태로 변경
+            Hit();
+            // 애니메이션의 길이만큼 대기 후 상태를 변경
+            StartCoroutine(ResetToRun());
+        }
     }
 
     // public void StartMovingToStair(Vector3 targetPosition)

@@ -9,6 +9,9 @@ TagManager:
   - golden
   - ball
   - stair
+  - Bottom
+  - Error
+  - Commit
   layers:
   - Default
   - TransparentFX

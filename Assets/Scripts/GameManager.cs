@@ -22,9 +22,9 @@ public class GameManager : MonoBehaviour
     [Header("References")]
     public GameObject IntroUI;
     public GameObject DeadUI;
-    public GameObject EnemySpawner;
-    public GameObject FoodSpawner;
-    public GameObject GoldenSpawner;
+    // public GameObject EnemySpawner;
+    // public GameObject FoodSpawner;
+    // public GameObject GoldenSpawner;
     public GameObject BallSpawner;
     // public GameObject StairPrefab;    // 계단 프리팹
     // public Transform StairSpawnPoint; // 계단 생성 위치
@@ -37,7 +37,6 @@ public class GameManager : MonoBehaviour
             Instance = this;
         }
     }
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
         if (SceneManager.GetActiveScene().name != "Stage1" && SceneManager.GetActiveScene().name != "Stage3"){
@@ -51,6 +50,7 @@ public class GameManager : MonoBehaviour
         return Time.time - PlayStartTime;
     }
 
+    // 점수 계산 로직
     void SaveHighScore()    {
         int score = Mathf.FloorToInt(CalculateScore());
         int currentHightScore = PlayerPrefs.GetInt("highScore");
@@ -64,7 +64,6 @@ public class GameManager : MonoBehaviour
         return PlayerPrefs.GetInt("highScore");
     }
 
-    // Update is called once per frame
     void Update()
     {
         if(State == GameState.Playing)  {
@@ -86,17 +85,17 @@ public class GameManager : MonoBehaviour
         if(State == GameState.Intro && Input.GetKeyDown(KeyCode.Space)) {
             State = GameState.Playing;
             IntroUI.SetActive(false);
-            EnemySpawner.SetActive(true);
-            FoodSpawner.SetActive(true);
-            GoldenSpawner.SetActive(true);
-            BallSpawner.SetActive(true);
+            // EnemySpawner.SetActive(true);
+            // FoodSpawner.SetActive(true);
+            // GoldenSpawner.SetActive(true);
+            // BallSpawner.SetActive(true);
             PlayStartTime = Time.time;
         }
         if(State == GameState.Playing && Lives == 0)    {
             PlayerScript.KillPlayer();
-            EnemySpawner.SetActive(false);
-            FoodSpawner.SetActive(false);
-            GoldenSpawner.SetActive(false);
+            // EnemySpawner.SetActive(false);
+            // FoodSpawner.SetActive(false);
+            // GoldenSpawner.SetActive(false);
             if(BallSpawner != null) {
                 BallSpawner.SetActive(false);
             }
@@ -112,9 +111,9 @@ public class GameManager : MonoBehaviour
     {
         Debug.Log("Time's up!"); // 제한시간 종료 처리
         stairSpawned = true;
-        EnemySpawner.SetActive(false);
-        FoodSpawner.SetActive(false);
-        GoldenSpawner.SetActive(false);
+        // EnemySpawner.SetActive(false);
+        // FoodSpawner.SetActive(false);
+        // GoldenSpawner.SetActive(false);
         if (BallSpawner != null)
         {
             BallSpawner.SetActive(false);
