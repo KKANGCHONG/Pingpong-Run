@@ -1,4 +1,5 @@
 using UnityEngine;
+using System.Collections;
 using UnityEngine.SceneManagement;
 using TMPro; // TextMeshPro를 사용하기 위해 필요
 
@@ -17,6 +18,7 @@ public class ScoreManager : MonoBehaviour
     private float remainingTime; // 남은 시간
     [Header("References")]
     public GameObject SelectionUI; // 선택지 UI
+    public GameObject DeadUI; // 선택지 UI
     public TMP_Text selectionMessage; // 선택 메시지 UI
     public GameObject arrow; // 화살표 오브젝트
     public GameObject ball;
@@ -32,6 +34,7 @@ public class ScoreManager : MonoBehaviour
         // 제한시간을 랜덤으로 설정
         remainingTime = Random.Range(minTimeLimit, maxTimeLimit);
         SelectionUI.SetActive(false);
+        DeadUI.SetActive(false);
         UpdateArrowPosition();
     }
 
@@ -104,8 +107,13 @@ public class ScoreManager : MonoBehaviour
         if (gameEnded) return;
 
         gameEnded = true;
-        Debug.Log("Game Over! Time's up! Limit: {remainingTime}");
-        SceneManager.LoadScene("Select");
+        DeadUI.SetActive(true);
+        StartCoroutine(LoadSceneAfterDelay("Select", 2f));
+    }
+    private IEnumerator LoadSceneAfterDelay(string sceneName, float delay)
+    {
+        yield return new WaitForSeconds(delay);
+        SceneManager.LoadScene(sceneName);
     }
     private void ShowSelectionUI(string message)
     {
