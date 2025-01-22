@@ -155,13 +155,16 @@ public class ScoreManager : MonoBehaviour
         {
             ball.transform.position = Vector3.zero; // 공의 위치를 초기화
             Rigidbody2D ballRb = ball.GetComponent<Rigidbody2D>();
-            if (ballRb != null)
+            Ball ballScript = ball.GetComponent<Ball>();
+            if (ballRb != null && ballScript != null)
             {
                 ballRb.linearVelocity = Vector2.zero; // 공의 속도를 초기화
                 // 랜덤 방향으로 초기 속도 설정
-                float xVelocity = Random.Range(0, 2) == 0 ? -1f : 1f;
-                float yVelocity = Random.Range(-1f, 1f);
-                ballRb.AddForce(new Vector2(xVelocity, yVelocity).normalized * 5f, ForceMode2D.Impulse);
+                bool isRight = UnityEngine.Random.value >= 0.5f;
+                float xVelocity = isRight ? 1f : -1f;
+                float yVelocity = UnityEngine.Random.Range(-1f, 1f);
+
+                ballRb.linearVelocity = new Vector2(xVelocity, yVelocity).normalized * ballScript.startingSpeed; // 초기 속도 적용
             }
         }
     }

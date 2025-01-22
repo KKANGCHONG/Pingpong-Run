@@ -37,7 +37,7 @@ public class P1 : MonoBehaviour
         {
             transform.Translate(Vector2.right * Time.deltaTime * moveSpeedX);
         }
-        float clampedX = Mathf.Clamp(transform.position.x, 5f, 11f);
+        float clampedX = Mathf.Clamp(transform.position.x, 3f, 11f);
         float clampedY = Mathf.Clamp(transform.position.y, -6f, 6f);
         transform.position = new Vector3(clampedX, clampedY, transform.position.z);
     }

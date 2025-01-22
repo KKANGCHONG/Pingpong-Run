@@ -30,19 +30,19 @@ public class Boundary : MonoBehaviour
     {
         ball.transform.position = Vector3.zero;
         Rigidbody2D ballRb = ball.GetComponent<Rigidbody2D>();
-        if (ballRb != null)
+        Ball ballScript = ball.GetComponent<Ball>();
+        if (ballRb != null && ballScript != null)
         {
             ballRb.linearVelocity = Vector2.zero; // 기존 속도 초기화
             ballRb.angularVelocity = 0f;   // 회전 초기화
 
             // 초기 속도 설정
-            float startingSpeed = 5f; // 원하는 초기 속도
             bool isRight = UnityEngine.Random.value >= 0.5f; // 랜덤 방향 결정
             float xVelocity = isRight ? 1f : -1f; // X축 방향 설정
             float yVelocity = UnityEngine.Random.Range(-1f, 1f); // Y축 방향 설정
 
             // 새로운 속도 적용
-            ballRb.linearVelocity = new Vector2(xVelocity * startingSpeed, yVelocity * startingSpeed);
+            ballRb.linearVelocity = new Vector2(xVelocity, yVelocity).normalized * ballScript.startingSpeed;
         }
     }
 }
