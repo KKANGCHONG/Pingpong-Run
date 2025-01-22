@@ -1,13 +1,25 @@
 fileFormatVersion: 2
-guid: 3cec36480f8563d46842ca418d7a15e3
+guid: 62666bce197763543836a5907a00f69f
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: 8326523724846538096
-    second: Hyunjung Slide_0
+      213: 8930995165594595998
+    second: Hyunjung Jump_0
   - first:
-      213: 80048172879710649
-    second: Hyunjung Slide_1
+      213: 9026601765683128501
+    second: Hyunjung Jump_1
+  - first:
+      213: 3211800688465827267
+    second: Hyunjung Jump_2
+  - first:
+      213: 7317099754608120838
+    second: Hyunjung Jump_3
+  - first:
+      213: -4463608325445365032
+    second: Hyunjung Jump_4
+  - first:
+      213: 8783913740017127727
+    second: Hyunjung Jump_5
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -54,7 +66,7 @@ TextureImporter:
   spriteMeshType: 1
   alignment: 0
   spritePivot: {x: 0.5, y: 0.5}
-  spritePixelsToUnits: 25
+  spritePixelsToUnits: 20
   spriteBorder: {x: 0, y: 0, z: 0, w: 0}
   spriteGenerateFallbackPhysicsShape: 1
   alphaUsage: 1
@@ -116,13 +128,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: Hyunjung Slide_0
+      name: Hyunjung Jump_0
       rect:
         serializedVersion: 2
-        x: 1
-        y: 14
-        width: 48
-        height: 21
+        x: 12
+        y: 54
+        width: 24
+        height: 37
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -131,20 +143,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 07d17514631cd8370800000000000000
-      internalID: 8326523724846538096
+      spriteID: e923fffd8c441fb70800000000000000
+      internalID: 8930995165594595998
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Hyunjung Slide_1
+      name: Hyunjung Jump_1
       rect:
         serializedVersion: 2
-        x: 57
-        y: 9
-        width: 34
-        height: 31
+        x: 63
+        y: 60
+        width: 23
+        height: 32
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -153,8 +165,96 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 9b90a6d93636c1100800000000000000
-      internalID: 80048172879710649
+      spriteID: 5b8e47c1b7ee44d70800000000000000
+      internalID: 9026601765683128501
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Hyunjung Jump_2
+      rect:
+        serializedVersion: 2
+        x: 109
+        y: 54
+        width: 27
+        height: 39
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 3c55c5595bb929c20800000000000000
+      internalID: 3211800688465827267
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Hyunjung Jump_3
+      rect:
+        serializedVersion: 2
+        x: 8
+        y: 8
+        width: 27
+        height: 35
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 604d38b857f8b8560800000000000000
+      internalID: 7317099754608120838
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Hyunjung Jump_4
+      rect:
+        serializedVersion: 2
+        x: 60
+        y: 10
+        width: 27
+        height: 35
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 8d25a5190e31e02c0800000000000000
+      internalID: -4463608325445365032
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Hyunjung Jump_5
+      rect:
+        serializedVersion: 2
+        x: 112
+        y: 8
+        width: 23
+        height: 33
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: f21d463e10bb6e970800000000000000
+      internalID: 8783913740017127727
       vertices: []
       indices: 
       edges: []
@@ -173,8 +273,12 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      Hyunjung Slide_0: 8326523724846538096
-      Hyunjung Slide_1: 80048172879710649
+      Hyunjung Jump_0: 8930995165594595998
+      Hyunjung Jump_1: 9026601765683128501
+      Hyunjung Jump_2: 3211800688465827267
+      Hyunjung Jump_3: 7317099754608120838
+      Hyunjung Jump_4: -4463608325445365032
+      Hyunjung Jump_5: 8783913740017127727
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
