@@ -12,6 +12,9 @@ TagManager:
   - Bottom
   - Error
   - Commit
+  - Soju
+  - Madcamp
+  - Condition
   layers:
   - Default
   - TransparentFX

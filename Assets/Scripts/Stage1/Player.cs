@@ -84,14 +84,20 @@ public class Player : MonoBehaviour
         GameManager.Instance.Lives = Mathf.Min(3, GameManager.Instance.Lives + 1);
     }
 
-    // void StartInvincible()  {
-    //     isInvincible = true;
-    //     Invoke("StopInvincible", 5f);
-    // }
+    // 소주 마셔서 알코올 농도 높아짐 - 테스트 
+    void drink_soju()  {
+        GameManager.Instance.Alcohol += 1;
+        if(GameManager.Instance.Alcohol == 5)  {
+            // 화면 흔들리는걸로 로직 수정하기
+            Debug.Log("Alcohol maxed out! Player is now affected."); // 디버그용
+        }
+    }
 
-    // void StopInvincible()  {
-    //     isInvincible = false;
-    // }
+    // 컨디션 마셔서 농도 낮아짐
+    void drink_condition() {
+        GameManager.Instance.Alcohol = Mathf.Min(5, GameManager.Instance.Alcohol-1);
+    }
+
 
     void OnCollisionEnter2D(Collision2D collision2D) {
         if(collision2D.gameObject.tag == "Bottom") {
@@ -124,26 +130,44 @@ public class Player : MonoBehaviour
             Destroy(collider.gameObject);
             Heal();
         }
-        // else if(collider.gameObject.tag == "golden")    {
-        //     Destroy(collider.gameObject);
-        //     StartInvincible();
-        // }
+
+        //소주 마시면 알코올 농도 오르는거 구현 
+        else if(collider.gameObject.tag == "Soju")  {
+            Destroy(collider.gameObject); // 소주는 사라짐 
+            drink_soju();
+            Heal();
+        }
+
+        else if(collider.gameObject.tag == "Condition")  {
+            Destroy(collider.gameObject); // 컨디션  사라짐 
+            drink_condition();
+        }
 
         else if (collider.gameObject.tag == "Error" && isHit == false)
         {
-            isHit = true; // 충돌 상태 설정
+            isHit = true; 
             PlayerAnimator.SetInteger("state", 5); // Jinwoo Hit 상태로 변경
             Hit();
-            // 애니메이션의 길이만큼 대기 후 상태를 변경
+
             StartCoroutine(ResetToRun());
         }
 
         else if (collider.gameObject.tag == "Commit" && isHit == false)
         {
-            isHit = true; // 충돌 상태 설정
+            isHit = true; 
             PlayerAnimator.SetInteger("state", 5); // Jinwoo Hit 상태로 변경
             Hit();
-            // 애니메이션의 길이만큼 대기 후 상태를 변경
+
+            StartCoroutine(ResetToRun());
+        }
+
+        else if (collider.gameObject.tag == "Madcamp" && isHit == false)
+        {
+            isHit = true; 
+            PlayerAnimator.SetInteger("state", 5); // Jinwoo Hit 상태로 변경
+            Hit();
+            Destroy(collider.gameObject); // 블록 없애기
+
             StartCoroutine(ResetToRun());
         }
     }
