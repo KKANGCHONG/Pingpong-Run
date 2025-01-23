@@ -22,6 +22,7 @@ TagManager:
   - Ball_2
   - Ball_1
   - Banana
+  - ThrowingBall
   layers:
   - Default
   - TransparentFX

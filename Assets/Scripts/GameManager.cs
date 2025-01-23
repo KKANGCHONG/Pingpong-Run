@@ -146,6 +146,8 @@
 // }
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using System.Collections;
+using System.Collections.Generic;
 using TMPro;
 
 public enum GameState
@@ -170,7 +172,7 @@ public class GameManager : MonoBehaviour
     public bool PreventShake = false;
 
     [Header("Game Settings")]
-    public float timeLimit = 30f; // 제한시간 (초)
+    public float timeLimit = 15f; // 제한시간 (초)
     private float currentTime; // 현재 시간
     private bool stairSpawned = false;
 
@@ -227,13 +229,18 @@ public class GameManager : MonoBehaviour
 
     void Update()
     {
+        if (Input.GetKeyDown(KeyCode.T)) // 테스트용 키 입력
+        {
+            SceneManager.LoadScene("Stage2");
+        }
+        
         if (State == GameState.Playing)
         {
             currentTime += Time.deltaTime;
             if (currentTime >= timeLimit)
             {
                 currentTime = timeLimit;
-                if (!stairSpawned) OnTimeUp(); // 제한시간이 끝났을 때 처리
+                OnTimeUp(); // 제한시간이 끝났을 때 처리
             }
 
             // 제한시간 UI 업데이트
@@ -269,15 +276,26 @@ public class GameManager : MonoBehaviour
         {
             SceneManager.LoadScene("Select");
         }
+        
     }
-
     private void OnTimeUp()
     {
-        Debug.Log("Time's up!"); // 제한시간 종료 처리
+        Debug.Log("Time's up!");
         stairSpawned = true;
         if (BallSpawner != null)
         {
             BallSpawner.SetActive(false);
+            StartCoroutine(LoadStage2());
         }
     }
+
+    private IEnumerator LoadStage2()
+    {
+        yield return new WaitForSeconds(1f); // 지연 시간 (선택사항)
+        SceneManager.LoadScene("Stage2");
+    }
+
+
+    
+    
 }

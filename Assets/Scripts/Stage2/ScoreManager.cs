@@ -40,6 +40,11 @@ public class ScoreManager : MonoBehaviour
 
     void Update()
     {
+        if (Input.GetKeyDown(KeyCode.T)) // 테스트용 키 입력
+        {
+            SceneManager.LoadScene("Stage3");
+        }
+        
         if (!gameEnded)
         {
             // 남은 시간 감소

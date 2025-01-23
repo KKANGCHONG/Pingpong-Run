@@ -117,7 +117,7 @@ public class Player : MonoBehaviour
             GameManager.Instance.Alcohol = Mathf.Clamp(GameManager.Instance.Alcohol - 1, 0, 5);
         }
 
-        else if (collider.CompareTag("enemy") || collider.CompareTag("ball"))
+        else if (collider.CompareTag("enemy") || collider.CompareTag("ThrowingBall"))
         {
             if (!isInvincible)
             {

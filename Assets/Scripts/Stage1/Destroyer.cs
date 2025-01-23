@@ -9,6 +9,13 @@ public class Destroyer : MonoBehaviour
     }
 
     // Update is called once per frame
+    // void Update()
+    // {
+    //     if(transform.position.x < -15 || transform.position.x > 15)  {
+    //         Destroy(gameObject);
+    //     }
+    // }
+
     void Update()
     {
         if(transform.position.x < -15 && !CompareTag("ball"))  {
